@@ -153,7 +153,6 @@ var
 begin
   if Supports(FFileDialog.Dialog, IFileDialogCustomize, c) then
   begin
-    // Add a Advanced Button
     if c.GetSelectedControlItem(dwComboID, itemsel) = S_OK then
     begin
       FFileDialog.EncodingIndex:= Integer(itemsel - dwFirstComboID);
@@ -248,7 +247,6 @@ destructor TFileTextDialog.Destroy;
 begin
   if (Dialog <> nil) and (FCookie <> 0) then
     Dialog.Unadvise(FCookie);
-  //FFileDialog := nil;
   FEvents := nil;
   FCookie := 0;
   FEncodings.Free;
@@ -276,7 +274,6 @@ begin
     d := TMyFileDialogEvents.Create(Self);
     if Dialog.Advise(d, ck) = S_OK then
     begin
-      //FFileDialog := Dialog;
       FEvents := d;
       FCookie := ck;
     end;
