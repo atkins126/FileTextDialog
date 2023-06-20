@@ -40,14 +40,15 @@ type
     FEncodingIndex: Integer;
     FCookie: Cardinal;
     FEvents: IFileDialogEvents;
-    //FFileDialog: IFileDialog;
+    function GetSelectedFileType: Cardinal;
     function IsEncodingStored: Boolean;
     procedure SetEncodings(const Value: TStrings);
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure DoTheExecute(Sender: TObject);
-  published
+    property SelectedFileType: Cardinal read GetSelectedFiletype;
+published
     property Encodings: TStrings read FEncodings write SetEncodings stored IsEncodingStored;
     property EncodingIndex: Integer read FEncodingIndex write FEncodingIndex default 0;
   end;
@@ -278,6 +279,12 @@ begin
       FCookie := ck;
     end;
   end;
+end;
+
+function TFileTextDialog.GetSelectedFileType: Cardinal;
+begin
+  if Dialog <> nil then
+    Dialog.GetFileTypeIndex(Result);
 end;
 
 function TFileTextDialog.IsEncodingStored: Boolean;
